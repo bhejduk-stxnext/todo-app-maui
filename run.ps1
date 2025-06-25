@@ -1,0 +1,1 @@
+dotnet build TodoApp.App/TodoApp.App.csproj --target:Run --property:Configuration=Debug --property:TargetFramework=net9.0-android

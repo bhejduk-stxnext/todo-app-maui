@@ -1,0 +1,22 @@
+<Project>
+    <!-- Core -->
+    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('.Core'))">
+        
+    </ItemGroup>
+    
+    <!-- ViewModels -->
+    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('.ViewModels'))">
+        <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.Core\TodoApp.Core.csproj"/>
+        
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+    </ItemGroup>
+    
+    <!-- App -->
+    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('.App'))">
+        <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.ViewModels\TodoApp.ViewModels.csproj"/>
+        
+        <PackageReference Include="CommunityToolkit.Maui" />
+        <PackageReference Include="Microsoft.Maui.Controls"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug"/>
+    </ItemGroup>
+</Project>
