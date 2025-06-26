@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Background color cannot be taken from App resources - https://github.com/dotnet/maui/issues/11485-->
+<pages:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:TodoApp.App.Pages;assembly=TodoApp.App"
+    xmlns:views="clr-namespace:TodoApp.App.Views"
+    xmlns:viewModels="clr-namespace:TodoApp.ViewModels;assembly=TodoApp.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:TypeArguments="viewModels:MainPageViewModel"
+    x:Class="TodoApp.App.Pages.MainPage"
+    x:DataType="viewModels:MainPageViewModel"
+    x:Name="Page"
+    BackgroundColor="#00040f">
+    <pages:BaseContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding Path=TodoListViewModel.LoadItemsCommand}"
+            BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext}" />
+    </pages:BaseContentPage.Behaviors>
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <Label Text="Todo App" FontSize="30" FontAttributes="Bold" VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center" TextColor="White"/>
+            <views:TodoListView BindingContext="{Binding TodoListViewModel}" />
+        </StackLayout>
+    </ScrollView>
+</pages:BaseContentPage>

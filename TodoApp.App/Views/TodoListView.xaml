@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<views:BaseContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
+    xmlns:viewModels="clr-namespace:TodoApp.ViewModels;assembly=TodoApp.ViewModels"
+    xmlns:converters="clr-namespace:TodoApp.App.Converters;assembly=TodoApp.App"
+    x:TypeArguments="viewModels:TodoListViewModel"
+    x:Class="TodoApp.App.Views.TodoListView"
+    x:DataType="viewModels:TodoListViewModel">
+    <views:BaseContentView.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </views:BaseContentView.Resources>
+    <CollectionView
+        ItemsSource="{Binding TodoItems}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="viewModels:TodoListItemSummaryViewModel">
+                <Border Stroke="{StaticResource ItemsColor}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 10,10,10,10"
+                        BackgroundColor="{StaticResource ItemsColor}"
+                        Padding="12, 16">
+                    <Grid ColumnDefinitions="*, 50" RowDefinitions="*,*,*"
+                          BackgroundColor="{StaticResource ItemsColor}">
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Text="{Binding TodoItem.Title, Mode=OneTime}"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            TextColor="White">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding IsCompleted}"
+                                    Value="true">
+                                    <Setter Property="TextColor" Value="LawnGreen"></Setter>
+                                    <Setter Property="TextDecorations" Value="Strikethrough" />
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="{Binding TodoItem.DueDate, Mode=OneTime, StringFormat='{0:g}'}"
+                            FontSize="11"
+                            VerticalTextAlignment="Center"
+                            TextColor="White">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding IsCompleted}"
+                                    Value="true">
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding DeadlineExceeded}">
+                                    <Setter Property="TextColor" Value="Red"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Important"
+                            TextColor="OrangeRed"
+                            FontSize="11"
+                            VerticalTextAlignment="Center"
+                            IsVisible="False">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding TodoItem.Important}"
+                                    Value="true">
+                                    <Setter Property="IsVisible" Value="true" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding IsCompleted}"
+                                    Value="true">
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <CheckBox x:Name="IsCompletedCheckBox"
+                                  Grid.Column="1"
+                                  Grid.RowSpan="3"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center"
+                                  IsChecked="{Binding IsCompleted}"
+                                  IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+                            <CheckBox.Triggers>
+                                <DataTrigger
+                                    TargetType="CheckBox"
+                                    Binding="{Binding TodoItem.Important, Mode=OneTime}"
+                                    Value="True">
+                                    <Setter Property="Color" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    TargetType="CheckBox"
+                                    Binding="{Binding IsCompleted}"
+                                    Value="True">
+                                    <Setter Property="Color" Value="LawnGreen" />
+                                </DataTrigger>
+                            </CheckBox.Triggers>
+                        </CheckBox>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</views:BaseContentView>
