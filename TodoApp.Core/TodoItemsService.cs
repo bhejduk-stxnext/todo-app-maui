@@ -1,4 +1,6 @@
-﻿namespace TodoApp.Core;
+﻿using Bogus.DataSets;
+
+namespace TodoApp.Core;
 
 public sealed class TodoItemsService : ITodoItemsService
 {
@@ -20,9 +22,9 @@ public sealed class TodoItemsService : ITodoItemsService
             var todoItem = new TodoItem
             {
                 Id = id.ToString(),
-                Title = new Bogus.DataSets.Commerce().ProductName(),
-                DueDate = new Bogus.DataSets.Date().SoonOffset(),
-                CreatedDate = new Bogus.DataSets.Date().RecentOffset(),
+                Title = new Commerce().ProductName() + " " + id,
+                DueDate = new Date().SoonOffset(),
+                CreatedDate = new Date().RecentOffset(),
                 Completed = id % 3 == 0,
                 Important = id % 2 == 0
             };

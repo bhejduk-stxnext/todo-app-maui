@@ -1,0 +1,19 @@
+﻿<?xml
+    version="1.0"
+    encoding="utf-8"?>
+
+<pages:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:TodoApp.App.Pages;assembly=TodoApp.App"
+    xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
+    xmlns:pageViewModels="clr-namespace:TodoApp.ViewModels.Pages;assembly=TodoApp.ViewModels"
+    x:TypeArguments="pageViewModels:TodoItemDetailsPageViewModel"
+    x:Class="TodoApp.App.Pages.TodoItemDetailsPage"
+    x:DataType="pageViewModels:TodoItemDetailsPageViewModel"
+    BackgroundColor="#00040f">
+    <ContentPage.Content>
+        <views:TodoItemDetailsView
+            BindingContext="{Binding TodoItemDetailsViewModel}"/>
+    </ContentPage.Content>
+</pages:BaseContentPage>

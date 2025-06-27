@@ -1,23 +1,18 @@
-﻿using INavigation = TodoApp.ViewModels.Navigation.INavigation;
+﻿using TodoApp.ViewModels.Navigation;
+using INavigation = TodoApp.ViewModels.Navigation.INavigation;
 
 namespace TodoApp.App;
 
 public sealed class Navigation : INavigation
 {
-    private readonly AppShell _appShell;
-
-    public Navigation(AppShell appShell)
+    public Task NavigateToAsync(Route route, IDictionary<string, object>? parameters = null, CancellationToken cancellation = default)
     {
-        _appShell = appShell;
-    }
-
-    public Task NavigateToAsync(string route, IDictionary<string, object>? parameters = null, CancellationToken cancellation = default)
-    {
-        return _appShell.GoToAsync(route, parameters);
+        var appRoute = AppShell.GetRoute(route);
+        return Shell.Current.GoToAsync(appRoute, parameters);
     }
 
     public Task GoBackAsync(CancellationToken cancellation = default)
     {
-        return _appShell.GoToAsync("..");
+        return Shell.Current.GoToAsync("..");
     }
 }

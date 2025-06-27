@@ -2,7 +2,8 @@
 
 namespace TodoApp.App.Views;
 
-public class BaseContentView<TViewModel> : ContentView
+// ReSharper disable PartialTypeWithSinglePart
+public partial class BaseContentView<TViewModel> : ContentView
     where TViewModel : BaseViewModel
 {
     protected BaseContentView(TViewModel viewModel)

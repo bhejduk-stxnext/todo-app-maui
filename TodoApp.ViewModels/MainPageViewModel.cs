@@ -1,11 +1,24 @@
-﻿namespace TodoApp.ViewModels;
+﻿using CommunityToolkit.Mvvm.Input;
 
-public class MainPageViewModel : BaseViewModel
+namespace TodoApp.ViewModels;
+
+public sealed partial class MainPageViewModel : BaseViewModel
 {
+    private bool _initialized;
+
     public MainPageViewModel(TodoListViewModel todoListViewModel)
     {
         TodoListViewModel = todoListViewModel;
     }
 
     public TodoListViewModel TodoListViewModel { get; }
+
+    [RelayCommand]
+    private async Task InitializeAsync()
+    {
+        if (!_initialized)
+            await TodoListViewModel.LoadItemsAsync();
+
+        _initialized = true;
+    }
 }

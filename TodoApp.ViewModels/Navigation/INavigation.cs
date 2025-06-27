@@ -8,7 +8,7 @@ public interface INavigation
     /// <summary>
     ///     Navigates to given route.
     /// </summary>
-    public Task NavigateToAsync(string route, IDictionary<string, object>? parameters = null, CancellationToken cancellation = default);
+    public Task NavigateToAsync(Route route, IDictionary<string, object>? parameters = null, CancellationToken cancellation = default);
 
     /// <summary>
     ///     Goes back to previous page.

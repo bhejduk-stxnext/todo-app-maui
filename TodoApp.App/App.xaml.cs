@@ -12,6 +12,16 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(_appShell);
+        var window = new Window(_appShell);
+
+#if WINDOWS
+        // emulate phone size
+        const int Newheight = 846;
+        const int Newwidth = 412;
+
+        window.Height = window.MinimumHeight = window.MaximumHeight = Newheight;
+        window.Width = window.MinimumWidth = window.MaximumWidth = Newwidth;
+#endif
+        return window;
     }
 }
