@@ -20,7 +20,8 @@ public sealed partial class AppShell : Shell
         return route switch
         {
             MainPageRoute => GetRoute<MainPage>(),
-            TodoItemDetailsRoute => GetRoute<TodoItemDetailsPage>(),
+            NewTodoItemRoute => GetRoute<NewTodoItemPage>(),
+            EditTodoItemRoute => GetRoute<EditTodoItemPage>(),
             _ => throw new NotSupportedException($"Route {route.GetType().Name} not found in Routing Table")
         };
     }
@@ -33,7 +34,8 @@ public sealed partial class AppShell : Shell
         return pageType switch
         {
             _ when pageType == typeof(MainPage) => $"//{nameof(MainPage)}",
-            _ when pageType == typeof(TodoItemDetailsPage) => $"//{nameof(MainPage)}/{nameof(TodoItemDetailsPage)}",
+            _ when pageType == typeof(NewTodoItemPage) => $"//{nameof(MainPage)}/{nameof(NewTodoItemPage)}",
+            _ when pageType == typeof(EditTodoItemPage) => $"//{nameof(MainPage)}/{nameof(EditTodoItemPage)}",
             _ => throw new NotSupportedException($"Page {pageType} not found in Routing Table")
         };
     }
@@ -41,6 +43,7 @@ public sealed partial class AppShell : Shell
     private static void RegisterRoutes()
     {
         Routing.RegisterRoute(GetRoute<MainPage>(), typeof(MainPage));
-        Routing.RegisterRoute(GetRoute<TodoItemDetailsPage>(), typeof(TodoItemDetailsPage));
+        Routing.RegisterRoute(GetRoute<NewTodoItemPage>(), typeof(NewTodoItemPage));
+        Routing.RegisterRoute(GetRoute<EditTodoItemPage>(), typeof(EditTodoItemPage));
     }
 }

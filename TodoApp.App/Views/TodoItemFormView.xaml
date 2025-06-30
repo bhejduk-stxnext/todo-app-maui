@@ -1,0 +1,108 @@
+﻿<?xml
+    version="1.0"
+    encoding="utf-8"?>
+<views:BaseContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
+    xmlns:viewModels="clr-namespace:TodoApp.ViewModels.Views;assembly=TodoApp.ViewModels"
+    x:TypeArguments="viewModels:TodoItemFormViewModel"
+    x:Class="TodoApp.App.Views.TodoItemFormView"
+    x:DataType="viewModels:TodoItemFormViewModel">
+    <views:BaseContentView.Resources>
+            <Style
+                TargetType="Border">
+                <Setter
+                    Property="Stroke"
+                    Value="{StaticResource ItemsColor}"/>
+                <Setter
+                    Property="StrokeThickness"
+                    Value="1"/>
+                <Setter
+                    Property="StrokeShape"
+                    Value="RoundRectangle 10,10,10,10"/>
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource ItemsColor}"/>
+                <Setter
+                    Property="Padding"
+                    Value="12, 16"/>
+            </Style>
+            <Style
+                TargetType="Label">
+                <Setter
+                    Property="TextColor"
+                    Value="White"/>
+            </Style>
+            <Style
+                TargetType="Entry">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource ItemsColor}"/>
+                <Setter
+                    Property="TextColor"
+                    Value="White"/>
+                <Setter
+                    Property="PlaceholderColor"
+                    Value="White"/>
+            </Style>
+            <Style
+                TargetType="DatePicker">
+                <Setter
+                    Property="TextColor"
+                    Value="White"/>
+            </Style>
+            <ResourceDictionary/>
+    </views:BaseContentView.Resources>
+    <Grid
+        RowDefinitions="*,1.3*,*,*,*,*"
+        RowSpacing="12"
+        Padding="12, 16">
+        <Border
+            Grid.Row="0">
+            <Entry
+                Placeholder="Add title..."
+                Text="{Binding Title}"/>
+        </Border>
+        <Border
+            Grid.Row="1">
+            <Entry
+                Placeholder="Add details..."
+                Text="{Binding Details}"/>
+        </Border>
+        <Border
+            Grid.Row="2">
+            <Entry
+                Placeholder="Add category..."
+                Text="{Binding Category}"/>
+        </Border>
+        <Border
+            Grid.Row="3">
+            <DatePicker/>
+        </Border>
+        <Border
+            Grid.Row="4">
+            <Grid
+                ColumnDefinitions="8*, *">
+                <Label
+                    Text="Important"
+                    VerticalTextAlignment="Center"/>
+                <CheckBox
+                    Grid.Column="1"
+                    IsChecked="{Binding Important}"/>
+            </Grid>
+        </Border>
+        <Border
+            Grid.Row="5">
+            <Grid
+                ColumnDefinitions="8*, *">
+                <Label
+                    Text="Completed"
+                    VerticalTextAlignment="Center"/>
+                <CheckBox
+                    Grid.Column="1"
+                    IsChecked="{Binding Completed}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</views:BaseContentView>

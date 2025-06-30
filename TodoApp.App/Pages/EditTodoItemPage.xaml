@@ -1,0 +1,63 @@
+﻿<?xml
+    version="1.0"
+    encoding="utf-8"?>
+
+<pages:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:TodoApp.App.Pages;assembly=TodoApp.App"
+    xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
+    xmlns:pageViewModels="clr-namespace:TodoApp.ViewModels.Pages;assembly=TodoApp.ViewModels"
+    xmlns:graphics="clr-namespace:TodoApp.App.Graphics"
+    x:TypeArguments="pageViewModels:EditTodoItemViewModel"
+    x:Class="TodoApp.App.Pages.EditTodoItemPage"
+    x:DataType="pageViewModels:EditTodoItemViewModel"
+    BackgroundColor="#00040f">
+    <pages:BaseContentPage.Content>
+        <Grid
+            RowDefinitions="150, *">
+            <Grid
+                Grid.Row="0">
+                <GraphicsView
+                    HeightRequest="150"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start">
+                    <GraphicsView.Drawable>
+                        <graphics:TopEllipse/>
+                    </GraphicsView.Drawable>
+                </GraphicsView>
+
+                <Label
+                    Text="Edit Todo"
+                    FontSize="24"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    VerticalTextAlignment="Center"/>
+
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                RowDefinitions="*, Auto"
+                RowSpacing="12"
+                Padding="12, 16">
+                <views:TodoItemFormView
+                    BindingContext="{Binding FormViewModel}"/>
+                <Grid
+                    Grid.Row="1"
+                    ColumnDefinitions="*, 2*, *"
+                    Padding="0, 15">
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding SaveItemCommand}"
+                        Text="Save"
+                        TextColor="White"
+                        FontSize="26"
+                        FontAttributes="Bold"
+                        BackgroundColor="#002a81"
+                        CornerRadius="20"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </pages:BaseContentPage.Content>
+</pages:BaseContentPage>

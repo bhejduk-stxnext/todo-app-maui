@@ -2,9 +2,9 @@
 
 namespace TodoApp.App.Pages;
 
-public partial class MainPage : BaseContentPage<MainPageViewModel>
+public partial class NewTodoItemPage : BaseContentPage<NewTodoViewModel>
 {
-    public MainPage(MainPageViewModel viewModel)
+    public NewTodoItemPage(NewTodoViewModel viewModel)
         : base(viewModel)
     {
         InitializeComponent();

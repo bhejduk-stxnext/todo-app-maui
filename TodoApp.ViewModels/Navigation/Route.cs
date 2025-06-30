@@ -9,16 +9,25 @@ public record MainPageRoute : Route
     public static MainPageRoute Instance { get; } = new();
 }
 
-public record TodoItemDetailsRoute : Route
+public record NewTodoItemRoute : Route
 {
-    private TodoItemDetailsRoute() { }
+    private NewTodoItemRoute() { }
 
-    public static TodoItemDetailsRoute Instance { get; } = new();
+    public static NewTodoItemRoute Instance { get; } = new();
+}
+
+public record EditTodoItemRoute : Route
+{
+    private EditTodoItemRoute() { }
+
+    public static EditTodoItemRoute Instance { get; } = new();
 }
 
 public static class Routes
 {
     public static Route MainPage => MainPageRoute.Instance;
 
-    public static Route TodoItemDetails => TodoItemDetailsRoute.Instance;
+    public static Route NewTodoItem => NewTodoItemRoute.Instance;
+
+    public static Route EditTodoItem => EditTodoItemRoute.Instance;
 }

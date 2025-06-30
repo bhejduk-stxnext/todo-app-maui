@@ -5,32 +5,15 @@ using TodoApp.Core;
 using TodoApp.ViewModels.Messages;
 using TodoApp.ViewModels.Navigation;
 
-namespace TodoApp.ViewModels;
+namespace TodoApp.ViewModels.Views;
 
 public sealed partial class TodoItemDetailsViewModel : BaseViewModel
 {
+    private readonly TodoItemFormViewModel _formViewModel;
     private readonly IMessenger _messenger;
     private readonly INavigation _navigation;
 
     private readonly ITodoItemsService _todoItemsService;
-
-    [ObservableProperty]
-    private string _category = string.Empty;
-
-    [ObservableProperty]
-    private bool _completed;
-
-    [ObservableProperty]
-    private string _details = string.Empty;
-
-    [ObservableProperty]
-    private DateTimeOffset? _dueDate;
-
-    [ObservableProperty]
-    private bool _important;
-
-    [ObservableProperty]
-    private string _title = string.Empty;
 
     /// <summary>
     ///     Passed through IQueryAttributable
@@ -38,11 +21,16 @@ public sealed partial class TodoItemDetailsViewModel : BaseViewModel
     [ObservableProperty]
     private TodoItem _todoItem = null!;
 
-    public TodoItemDetailsViewModel(ITodoItemsService todoItemsService, INavigation navigation, IMessenger messenger)
+    public TodoItemDetailsViewModel(
+        ITodoItemsService todoItemsService,
+        INavigation navigation,
+        IMessenger messenger,
+        TodoItemFormViewModel formViewModel)
     {
         _todoItemsService = todoItemsService;
         _navigation = navigation;
         _messenger = messenger;
+        _formViewModel = formViewModel;
     }
 
     private DateTimeOffset CreatedDate { get; set; }
@@ -50,24 +38,24 @@ public sealed partial class TodoItemDetailsViewModel : BaseViewModel
     // this is here and not in constructor cause of navigation
     partial void OnTodoItemChanged(TodoItem value)
     {
-        Title = value.Title;
-        Details = value.Details;
-        Category = value.Category;
-        CreatedDate = value.CreatedDate;
-        DueDate = value.DueDate;
-        Important = value.Important;
-        Completed = value.Completed;
+        _formViewModel.Title = value.Title;
+        _formViewModel.Details = value.Details;
+        _formViewModel.Category = value.Category;
+        _formViewModel.CreatedDate = value.CreatedDate;
+        _formViewModel.DueDate = value.DueDate;
+        _formViewModel.Important = value.Important;
+        _formViewModel.Completed = value.Completed;
     }
 
     [RelayCommand]
     private async Task SaveItem(CancellationToken cancellationToken = default)
     {
-        TodoItem.Title = Title;
-        TodoItem.Details = Details;
-        TodoItem.Category = Category;
-        TodoItem.DueDate = DueDate;
-        TodoItem.Important = Important;
-        TodoItem.Completed = Completed;
+        TodoItem.Title = _formViewModel.Title;
+        TodoItem.Details = _formViewModel.Details;
+        TodoItem.Category = _formViewModel.Category;
+        TodoItem.DueDate = _formViewModel.DueDate;
+        TodoItem.Important = _formViewModel.Important;
+        TodoItem.Completed = _formViewModel.Completed;
 
         try
         {

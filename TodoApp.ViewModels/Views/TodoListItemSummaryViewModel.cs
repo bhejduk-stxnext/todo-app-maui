@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using TodoApp.Core;
 using TodoApp.ViewModels.Messages;
 
-namespace TodoApp.ViewModels;
+namespace TodoApp.ViewModels.Views;
 
 public sealed partial class TodoListItemSummaryViewModel : BaseViewModel
 {

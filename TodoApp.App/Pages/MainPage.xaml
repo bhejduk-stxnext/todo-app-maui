@@ -8,8 +8,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:TodoApp.App.Pages;assembly=TodoApp.App"
     xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
-    xmlns:viewModels="clr-namespace:TodoApp.ViewModels;assembly=TodoApp.ViewModels"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModels="clr-namespace:TodoApp.ViewModels.Pages;assembly=TodoApp.ViewModels"
     x:TypeArguments="viewModels:MainPageViewModel"
     x:Class="TodoApp.App.Pages.MainPage"
     x:DataType="viewModels:MainPageViewModel"
@@ -21,19 +21,34 @@
             Command="{Binding Path=InitializeCommand}"
             BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext}"/>
     </pages:BaseContentPage.Behaviors>
-    <ScrollView>
-        <StackLayout
-            Padding="20"
-            Spacing="15">
-            <Label
-                Text="Todo App"
-                FontSize="30"
-                FontAttributes="Bold"
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                TextColor="White"/>
+    <Grid
+        RowDefinitions="Auto, *, Auto">
+        <Label
+            Text="Todo App"
+            FontSize="30"
+            Margin="0, 8"
+            FontAttributes="Bold"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            TextColor="White"/>
+        <ScrollView
+            Grid.Row="1">
             <views:TodoListView
                 BindingContext="{Binding TodoListViewModel}"/>
-        </StackLayout>
-    </ScrollView>
+        </ScrollView>
+        <Grid
+            Grid.Row="2"
+            ColumnDefinitions="*, 2*, *"
+            Padding="0, 15">
+            <Button
+                Grid.Column="1"
+                Command="{Binding CreateNewItemCommand}"
+                Text="Create"
+                TextColor="White"
+                FontSize="26"
+                FontAttributes="Bold"
+                BackgroundColor="#002a81"
+                CornerRadius="20"/>
+        </Grid>
+    </Grid>
 </pages:BaseContentPage>

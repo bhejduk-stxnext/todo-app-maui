@@ -2,4 +2,4 @@
 
 namespace TodoApp.ViewModels;
 
-public class BaseViewModel : ObservableObject;
+public class BaseViewModel : ObservableValidator;
