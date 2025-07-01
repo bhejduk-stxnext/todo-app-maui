@@ -10,11 +10,12 @@
     xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModels="clr-namespace:TodoApp.ViewModels.Pages;assembly=TodoApp.ViewModels"
+    xmlns:strings="clr-namespace:TodoApp.App.Resources.Strings"
     x:TypeArguments="viewModels:MainPageViewModel"
     x:Class="TodoApp.App.Pages.MainPage"
     x:DataType="viewModels:MainPageViewModel"
     x:Name="Page"
-    BackgroundColor="#00040f">
+    BackgroundColor="{StaticResource MainBackgroundColor}">
     <pages:BaseContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
@@ -25,30 +26,31 @@
         RowDefinitions="Auto, *, Auto">
         <Label
             Text="Todo App"
-            FontSize="30"
-            Margin="0, 8"
+            FontSize="36"
+            Margin="0, 12"
             FontAttributes="Bold"
             VerticalTextAlignment="Center"
             HorizontalTextAlignment="Center"
-            TextColor="White"/>
-        <ScrollView
+            TextColor="{StaticResource FontColor}"/>
+        <ScrollView Padding="16,0"
             Grid.Row="1">
             <views:TodoListView
                 BindingContext="{Binding TodoListViewModel}"/>
         </ScrollView>
         <Grid
             Grid.Row="2"
-            ColumnDefinitions="*, 2*, *"
+            ColumnDefinitions="*, Auto, *"
             Padding="0, 15">
             <Button
                 Grid.Column="1"
                 Command="{Binding CreateNewItemCommand}"
-                Text="Create"
-                TextColor="White"
+                Text="{x:Static strings:Strings.Create}"
+                TextColor="{StaticResource FontColor}"
                 FontSize="26"
                 FontAttributes="Bold"
-                BackgroundColor="#002a81"
-                CornerRadius="20"/>
+                BackgroundColor="{StaticResource SaveButtonColor}"
+                CornerRadius="20"
+                Padding="25, 12"/>
         </Grid>
     </Grid>
 </pages:BaseContentPage>

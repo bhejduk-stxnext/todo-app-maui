@@ -9,10 +9,11 @@
     xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
     xmlns:pageViewModels="clr-namespace:TodoApp.ViewModels.Pages;assembly=TodoApp.ViewModels"
     xmlns:graphics="clr-namespace:TodoApp.App.Graphics"
+    xmlns:strings="clr-namespace:TodoApp.App.Resources.Strings"
     x:TypeArguments="pageViewModels:EditTodoItemViewModel"
     x:Class="TodoApp.App.Pages.EditTodoItemPage"
     x:DataType="pageViewModels:EditTodoItemViewModel"
-    BackgroundColor="#00040f">
+    BackgroundColor="{StaticResource MainBackgroundColor}">
     <pages:BaseContentPage.Content>
         <Grid
             RowDefinitions="150, *">
@@ -28,12 +29,12 @@
                 </GraphicsView>
 
                 <Label
-                    Text="Edit Todo"
-                    FontSize="24"
-                    TextColor="White"
+                    Text="{x:Static strings:Strings.EditTodo}"
+                    FontSize="30"
+                    TextColor="{StaticResource FontColor}"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
-                    VerticalTextAlignment="Center"/>
+                    Margin="0, 50"/>
 
             </Grid>
             <Grid
@@ -50,11 +51,11 @@
                     <Button
                         Grid.Column="1"
                         Command="{Binding SaveItemCommand}"
-                        Text="Save"
-                        TextColor="White"
+                        Text="{x:Static strings:Strings.Save}"
+                        TextColor="{StaticResource FontColor}"
                         FontSize="26"
                         FontAttributes="Bold"
-                        BackgroundColor="#002a81"
+                        BackgroundColor="{StaticResource SaveButtonColor}"
                         CornerRadius="20"/>
                 </Grid>
             </Grid>

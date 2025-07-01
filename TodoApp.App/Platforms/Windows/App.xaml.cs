@@ -26,9 +26,8 @@ public partial class App : MauiWinUIApplication
         return MauiProgram.CreateMauiApp();
     }
 
-    private void CurrentDomain_FirstChanceException(object? sender, FirstChanceExceptionEventArgs e)
+    private static void CurrentDomain_FirstChanceException(object? sender, FirstChanceExceptionEventArgs e)
     {
         Debug.WriteLine($"********************************** UNHANDLED EXCEPTION! Details: {e.Exception}");
-        Console.WriteLine($"********************************** UNHANDLED EXCEPTION! Details: {e.Exception}");
     }
 }

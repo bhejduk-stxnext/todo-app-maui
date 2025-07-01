@@ -6,6 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
     xmlns:viewModels="clr-namespace:TodoApp.ViewModels.Views;assembly=TodoApp.ViewModels"
+    xmlns:strings="clr-namespace:TodoApp.App.Resources.Strings"
     x:TypeArguments="viewModels:TodoItemFormViewModel"
     x:Class="TodoApp.App.Views.TodoItemFormView"
     x:DataType="viewModels:TodoItemFormViewModel">
@@ -14,7 +15,7 @@
                 TargetType="Border">
                 <Setter
                     Property="Stroke"
-                    Value="{StaticResource ItemsColor}"/>
+                    Value="{StaticResource TodoItemColor}"/>
                 <Setter
                     Property="StrokeThickness"
                     Value="1"/>
@@ -23,7 +24,7 @@
                     Value="RoundRectangle 10,10,10,10"/>
                 <Setter
                     Property="BackgroundColor"
-                    Value="{StaticResource ItemsColor}"/>
+                    Value="{StaticResource TodoItemColor}"/>
                 <Setter
                     Property="Padding"
                     Value="12, 16"/>
@@ -32,25 +33,25 @@
                 TargetType="Label">
                 <Setter
                     Property="TextColor"
-                    Value="White"/>
+                    Value="{StaticResource FontColor}"/>
             </Style>
             <Style
                 TargetType="Entry">
                 <Setter
                     Property="BackgroundColor"
-                    Value="{StaticResource ItemsColor}"/>
+                    Value="{StaticResource TodoItemColor}"/>
                 <Setter
                     Property="TextColor"
-                    Value="White"/>
+                    Value="{StaticResource FontColor}"/>
                 <Setter
                     Property="PlaceholderColor"
-                    Value="White"/>
+                    Value="{StaticResource FontColor}"/>
             </Style>
             <Style
                 TargetType="DatePicker">
                 <Setter
                     Property="TextColor"
-                    Value="White"/>
+                    Value="{StaticResource FontColor}"/>
             </Style>
             <ResourceDictionary/>
     </views:BaseContentView.Resources>
@@ -61,13 +62,13 @@
         <Border
             Grid.Row="0">
             <Entry
-                Placeholder="Add title..."
+                Placeholder="{x:Static strings:Strings.AddTitle}"
                 Text="{Binding Title}"/>
         </Border>
         <Border
             Grid.Row="1">
             <Entry
-                Placeholder="Add details..."
+                Placeholder="{x:Static strings:Strings.AddDetails}"
                 Text="{Binding Details}"/>
         </Border>
         <Border
@@ -85,7 +86,7 @@
             <Grid
                 ColumnDefinitions="8*, *">
                 <Label
-                    Text="Important"
+                    Text="{x:Static strings:Strings.Important}"
                     VerticalTextAlignment="Center"/>
                 <CheckBox
                     Grid.Column="1"
@@ -97,7 +98,7 @@
             <Grid
                 ColumnDefinitions="8*, *">
                 <Label
-                    Text="Completed"
+                    Text="{x:Static strings:Strings.Completed}"
                     VerticalTextAlignment="Center"/>
                 <CheckBox
                     Grid.Column="1"

@@ -8,6 +8,7 @@
     xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
     xmlns:viewModels="clr-namespace:TodoApp.ViewModels.Views;assembly=TodoApp.ViewModels"
     xmlns:converters="clr-namespace:TodoApp.App.Converters;assembly=TodoApp.App"
+    xmlns:strings="clr-namespace:TodoApp.App.Resources.Strings"
     x:TypeArguments="viewModels:TodoListViewModel"
     x:Class="TodoApp.App.Views.TodoListView"
     x:DataType="viewModels:TodoListViewModel">
@@ -32,15 +33,15 @@
             <DataTemplate
                 x:DataType="viewModels:TodoListItemSummaryViewModel">
                 <Border
-                    Stroke="{StaticResource ItemsColor}"
+                    Stroke="{StaticResource TodoItemColor}"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 10,10,10,10"
-                    BackgroundColor="{StaticResource ItemsColor}"
+                    BackgroundColor="{StaticResource TodoItemColor}"
                     Padding="12, 16">
                     <Grid
-                        ColumnDefinitions="*, 50"
+                        ColumnDefinitions="*, 36"
                         RowDefinitions="*,*,*"
-                        BackgroundColor="{StaticResource ItemsColor}">
+                        BackgroundColor="{StaticResource TodoItemColor}">
                         <Label
                             Grid.Column="0"
                             Grid.Row="0"
@@ -71,7 +72,7 @@
                             Text="{Binding DueDate, StringFormat='{0:g}'}"
                             FontSize="11"
                             VerticalTextAlignment="Center"
-                            TextColor="White">
+                            TextColor="{StaticResource FontColor}">
                             <Label.Triggers>
                                 <DataTrigger
                                     TargetType="Label"
@@ -93,7 +94,7 @@
                         <Label
                             Grid.Column="0"
                             Grid.Row="2"
-                            Text="Important"
+                            Text="{x:Static strings:Strings.Important}"
                             TextColor="OrangeRed"
                             FontSize="11"
                             VerticalTextAlignment="Center"

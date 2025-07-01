@@ -60,7 +60,7 @@ public sealed partial class TodoListItemSummaryViewModel : BaseViewModel
         {
             TodoItem.Completed = value;
 
-            await _todoItemsService.UpdateAsync(TodoItem);
+            await _todoItemsService.UpdateAsync(TodoItem).ConfigureAwait(false);
 
             var message = new TodoItemUpdatedMessage(TodoItem);
             _messenger.Send(message);

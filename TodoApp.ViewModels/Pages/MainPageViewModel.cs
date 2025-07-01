@@ -22,7 +22,7 @@ public sealed partial class MainPageViewModel : BaseViewModel
     private async Task InitializeAsync()
     {
         if (!_initialized)
-            await TodoListViewModel.LoadItemsAsync();
+            await TodoListViewModel.LoadItemsAsync().ConfigureAwait(false);
 
         _initialized = true;
     }

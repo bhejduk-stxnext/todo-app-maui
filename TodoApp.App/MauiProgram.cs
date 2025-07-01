@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui;
+﻿using System.Globalization;
+using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Markup;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
@@ -8,6 +9,7 @@ using TodoApp.App.Views;
 using TodoApp.Core;
 using TodoApp.ViewModels;
 using TodoApp.ViewModels.Factories;
+using TodoApp.ViewModels.Localization;
 using TodoApp.ViewModels.Pages;
 using TodoApp.ViewModels.Views;
 using INavigation = TodoApp.ViewModels.Navigation.INavigation;
@@ -18,6 +20,8 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+        CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture;
+        
         var builder = MauiApp.CreateBuilder();
 
         builder
@@ -55,6 +59,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton(TimeProvider.System);
         builder.Services.AddSingleton<AppShell>();
+        builder.Services.AddSingleton<ILocalization, ResourceLocalization>();
         builder.Services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
         builder.Services.AddSingleton(Connectivity.Current);
         builder.Services.AddSingleton<ISnackbar, Snackbar>();

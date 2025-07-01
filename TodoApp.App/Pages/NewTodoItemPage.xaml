@@ -7,11 +7,12 @@
     xmlns:pages="clr-namespace:TodoApp.App.Pages;assembly=TodoApp.App"
     xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
     xmlns:viewModels="clr-namespace:TodoApp.ViewModels.Pages;assembly=TodoApp.ViewModels"
+    xmlns:strings="clr-namespace:TodoApp.App.Resources.Strings"
     xmlns:graphics="clr-namespace:TodoApp.App.Graphics"
     x:Class="TodoApp.App.Pages.NewTodoItemPage"
     x:TypeArguments="viewModels:NewTodoViewModel"
     x:DataType="viewModels:NewTodoViewModel"
-    BackgroundColor="#00040f">
+    BackgroundColor="{StaticResource MainBackgroundColor}">
     <pages:BaseContentPage.Content>
         <Grid
             RowDefinitions="150, *">
@@ -27,12 +28,12 @@
                 </GraphicsView>
 
                 <Label
-                    Text="Add Todo"
-                    FontSize="24"
-                    TextColor="White"
+                    Text="{x:Static strings:Strings.AddTodo}"
+                    FontSize="30"
+                    TextColor="{StaticResource FontColor}"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
-                    VerticalTextAlignment="Center"/>
+                    Margin="0, 50"/>
 
             </Grid>
             <Grid
@@ -49,11 +50,11 @@
                     <Button
                         Grid.Column="1"
                         Command="{Binding AddCommand}"
-                        Text="Add"
-                        TextColor="White"
+                        Text="{x:Static strings:Strings.Add}"
+                        TextColor="{StaticResource FontColor}"
                         FontSize="26"
                         FontAttributes="Bold"
-                        BackgroundColor="#002a81"
+                        BackgroundColor="{StaticResource SaveButtonColor}"
                         CornerRadius="20"/>
                 </Grid>
             </Grid>

@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Dispatching;
 using TodoApp.Core;
 using TodoApp.ViewModels.Factories;
+using TodoApp.ViewModels.Localization;
 using TodoApp.ViewModels.Messages;
 using TodoApp.ViewModels.Navigation;
 
@@ -15,6 +16,7 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
     private readonly IDispatcher _dispatcher;
     private readonly IMessenger _messenger;
     private readonly INavigation _navigation;
+    private readonly ILocalization _localization;
     private readonly ITodoItemsService _todoItemsService;
     private readonly ITodoListItemSummaryViewModelFactory _todoItemSummaryFactory;
     private readonly ISnackbar _snackbar;
@@ -28,7 +30,8 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         IMessenger messenger,
         ITodoListItemSummaryViewModelFactory todoItemSummaryFactory,
         INavigation navigation,
-        ISnackbar snackbar)
+        ISnackbar snackbar,
+        ILocalization localization)
     {
         _todoItemsService = todoItemsService;
         _dispatcher = dispatcher;
@@ -36,6 +39,7 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         _todoItemSummaryFactory = todoItemSummaryFactory;
         _navigation = navigation;
         _snackbar = snackbar;
+        _localization = localization;
         _todoItems = [];
 
         _messenger.Register<TodoItemCreatedMessage>(this);
@@ -55,7 +59,8 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
 
         TodoItems.Insert(index, todoItemViewModel);
 
-        await _snackbar.ShowAsync("New Todo created").ConfigureAwait(false);
+        var localizedString = _localization.GetString(Strings.TodoAdded);
+        await _snackbar.ShowAsync(localizedString).ConfigureAwait(false);
     }
 
     async void IRecipient<TodoItemUpdatedMessage>.Receive(TodoItemUpdatedMessage message)
@@ -79,8 +84,9 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
 #else
         TodoItems.Move(oldIndex, newIndex);
 #endif
-        
-        await _snackbar.ShowAsync("Todo edited").ConfigureAwait(false);
+
+        var localizedString = _localization.GetString(Strings.TodoUpdated);
+        await _snackbar.ShowAsync(localizedString).ConfigureAwait(false);
     }
 
     public async Task LoadItemsAsync()
@@ -99,7 +105,7 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         {
             var summaryViewModel = _todoItemSummaryFactory.Create(item);
 
-            await _dispatcher.DispatchAsync(() => TodoItems.Add(summaryViewModel));
+            await _dispatcher.DispatchAsync(() => TodoItems.Add(summaryViewModel)).ConfigureAwait(false);
         }
     }
 

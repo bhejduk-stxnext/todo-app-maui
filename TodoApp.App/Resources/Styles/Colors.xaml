@@ -30,7 +30,9 @@
     <Color x:Key="Gray950">#141414</Color>
 
     <Color x:Key="MainBackgroundColor">#00040f</Color>
-    <Color x:Key="ItemsColor">#000d27</Color>
+    <Color x:Key="TodoItemColor">#000d27</Color>
+    <Color x:Key="SaveButtonColor">#002a81</Color>
+    <Color x:Key="FontColor">White</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />

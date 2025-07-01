@@ -52,6 +52,6 @@ public sealed partial class NewTodoViewModel : BaseViewModel
         todoItem.Id = id;
     
         _messenger.Send(new TodoItemCreatedMessage(todoItem));
-        await _navigation.GoBackAsync(cancellationToken);
+        await _navigation.GoBackAsync(cancellationToken).ConfigureAwait(false);
     }
 }
