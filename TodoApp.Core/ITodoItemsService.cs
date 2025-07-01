@@ -9,4 +9,6 @@ public interface ITodoItemsService
     public Task UpdateAsync(TodoItem item, CancellationToken cancellationToken = default);
 
     public Task DeleteAsync(string id, CancellationToken cancellationToken = default);
+    
+    public Task<IReadOnlyList<Category>> GetCategoriesAsync(CancellationToken cancellationToken = default);
 }

@@ -8,7 +8,7 @@ public class TodoItem
 
     public string Details { get; set; } = string.Empty;
 
-    public string Category { get; set; } = string.Empty;
+    public Category? Category { get; set; }
 
     public DateTimeOffset CreatedDate { get; set; }
 

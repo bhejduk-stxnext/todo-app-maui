@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Networking;
 using TodoApp.Core;
 using TodoApp.ViewModels.Messages;
+using TodoApp.ViewModels.Models;
 using TodoApp.ViewModels.Navigation;
 using TodoApp.ViewModels.Views;
 
@@ -38,7 +39,7 @@ public sealed partial class NewTodoViewModel : BaseViewModel
         {
             Title = FormViewModel.Title,
             Details = FormViewModel.Details,
-            Category = FormViewModel.Category,
+            Category = FormViewModel.SelectedCategory == NoneCategory.Instance ? null : FormViewModel.SelectedCategory,
             DueDate = FormViewModel.DueDate,
             CreatedDate = DateTimeOffset.Now,
             Important = FormViewModel.Important,

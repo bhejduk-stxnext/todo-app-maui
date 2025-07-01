@@ -53,4 +53,13 @@ public sealed class TodoItemsService : ITodoItemsService
     {
         return Task.CompletedTask;
     }
+
+    public Task<IReadOnlyList<Category>> GetCategoriesAsync(CancellationToken cancellationToken = default)
+    {
+        var all = Categories
+            .GetAll()
+            .ToList();
+        
+        return Task.FromResult<IReadOnlyList<Category>>(all);
+    }
 }

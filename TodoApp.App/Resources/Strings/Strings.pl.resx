@@ -51,4 +51,10 @@
     <data name="TodoUpdated" xml:space="preserve">
         <value>Zadanie zostało zmodyfikowane</value>
     </data>
+    <data name="Category" xml:space="preserve">
+        <value>Kategoria</value>
+    </data>
+    <data name="NoneCategory" xml:space="preserve">
+        <value>Bez kategorii</value>
+    </data>
 </root>

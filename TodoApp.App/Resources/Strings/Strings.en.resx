@@ -51,4 +51,10 @@
     <data name="TodoUpdated" xml:space="preserve">
         <value>Todo updated successfully</value>
     </data>
+    <data name="Category" xml:space="preserve">
+        <value>Category</value>
+    </data>
+    <data name="NoneCategory" xml:space="preserve">
+        <value>No category</value>
+    </data>
 </root>

@@ -96,6 +96,15 @@ namespace TodoApp.App.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kategoria.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wykonano.
         /// </summary>
         public static string Completed {
@@ -128,6 +137,15 @@ namespace TodoApp.App.Resources.Strings {
         public static string Important {
             get {
                 return ResourceManager.GetString("Important", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bez kategorii.
+        /// </summary>
+        public static string NoneCategory {
+            get {
+                return ResourceManager.GetString("NoneCategory", resourceCulture);
             }
         }
         

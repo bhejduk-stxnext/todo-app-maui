@@ -56,7 +56,7 @@
             <ResourceDictionary/>
     </views:BaseContentView.Resources>
     <Grid
-        RowDefinitions="*,1.3*,*,*,*,*"
+        RowDefinitions="*,1.3*,1.2*,*,*,*"
         RowSpacing="12"
         Padding="12, 16">
         <Border
@@ -73,9 +73,19 @@
         </Border>
         <Border
             Grid.Row="2">
-            <Entry
-                Placeholder="Add category..."
-                Text="{Binding Category}"/>
+            <Grid
+                ColumnDefinitions="*, Auto">
+                <Label
+                    Text="{x:Static strings:Strings.Category}"
+                    VerticalTextAlignment="Center"/>
+                <Picker
+                    MinimumWidthRequest="200"
+                    WidthRequest="200"
+                    HorizontalOptions="End"
+                    ItemsSource="{Binding Categories}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedCategory}"/>
+            </Grid>
         </Border>
         <Border
             Grid.Row="3">

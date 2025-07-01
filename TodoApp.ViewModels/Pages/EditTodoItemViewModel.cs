@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using TodoApp.Core;
 using TodoApp.ViewModels.Messages;
+using TodoApp.ViewModels.Models;
 using TodoApp.ViewModels.Navigation;
 using TodoApp.ViewModels.Views;
 
@@ -42,7 +43,7 @@ public sealed partial class EditTodoItemViewModel : BaseViewModel
     {
         FormViewModel.Title = value.Title;
         FormViewModel.Details = value.Details;
-        FormViewModel.Category = value.Category;
+        FormViewModel.SelectedCategory = value.Category ?? NoneCategory.Instance;
         FormViewModel.CreatedDate = value.CreatedDate;
         FormViewModel.DueDate = value.DueDate;
         FormViewModel.Important = value.Important;
@@ -59,7 +60,7 @@ public sealed partial class EditTodoItemViewModel : BaseViewModel
     {
         TodoItem.Title = FormViewModel.Title;
         TodoItem.Details = FormViewModel.Details;
-        TodoItem.Category = FormViewModel.Category;
+        TodoItem.Category = FormViewModel.SelectedCategory == NoneCategory.Instance ? null : FormViewModel.SelectedCategory;
         TodoItem.DueDate = FormViewModel.DueDate;
         TodoItem.Important = FormViewModel.Important;
         TodoItem.Completed = FormViewModel.Completed;
