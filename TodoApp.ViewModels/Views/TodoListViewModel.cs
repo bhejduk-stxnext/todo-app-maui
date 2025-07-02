@@ -11,7 +11,7 @@ using TodoApp.ViewModels.Navigation;
 
 namespace TodoApp.ViewModels.Views;
 
-public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoItemCreatedMessage>, IRecipient<TodoItemUpdatedMessage>
+public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoItemCreatedMessage>, IRecipient<TodoItemUpdatedMessage>, IDisposable
 {
     private readonly IDispatcher _dispatcher;
     private readonly IMessenger _messenger;
@@ -23,7 +23,12 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
 
     [ObservableProperty]
     private ObservableCollection<TodoListItemSummaryViewModel> _todoItems;
+    
+    public int CompletedCount => TodoItems.Count(x => x.IsCompleted);
+    public int TotalCount => TodoItems.Count;
 
+    public string CompletedSummary => $"{_localization.GetString(Strings.Completed)}: {CompletedCount}/{TotalCount}";
+    
     public TodoListViewModel(
         ITodoItemsService todoItemsService,
         IDispatcher dispatcher,
@@ -44,8 +49,17 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
 
         _messenger.Register<TodoItemCreatedMessage>(this);
         _messenger.Register<TodoItemUpdatedMessage>(this);
+        
+        TodoItems.CollectionChanged += TodoItems_CollectionChanged;
     }
 
+    private void TodoItems_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(CompletedCount));
+        OnPropertyChanged(nameof(TotalCount));
+        OnPropertyChanged(nameof(CompletedSummary));
+    }
+    
     async void IRecipient<TodoItemCreatedMessage>.Receive(TodoItemCreatedMessage message)
     {
         var newList = TodoItems.ToList();
@@ -85,8 +99,11 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         TodoItems.Move(oldIndex, newIndex);
 #endif
 
-        var localizedString = _localization.GetString(Strings.TodoUpdated);
-        await _snackbar.ShowAsync(localizedString).ConfigureAwait(false);
+        if (!message.OnlyCompleted)
+        {
+            var localizedString = _localization.GetString(Strings.TodoUpdated);
+            await _snackbar.ShowAsync(localizedString).ConfigureAwait(false);   
+        }
     }
 
     public async Task LoadItemsAsync()
@@ -133,5 +150,10 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         await _navigation
             .NavigateToAsync(Routes.EditTodoItem, parameters, cancellationToken)
             .ConfigureAwait(false);
+    }
+    
+    public void Dispose()
+    {
+        TodoItems.CollectionChanged -= TodoItems_CollectionChanged;
     }
 }

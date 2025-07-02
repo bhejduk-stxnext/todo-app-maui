@@ -105,7 +105,7 @@ namespace TodoApp.App.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wykonano.
+        ///   Looks up a localized string similar to Ukończono.
         /// </summary>
         internal static string Completed {
             get {

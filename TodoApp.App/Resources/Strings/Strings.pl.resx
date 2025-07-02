@@ -43,7 +43,7 @@
         <value>Dodaj nazwę...</value>
     </data>
     <data name="Completed" xml:space="preserve">
-        <value>Wykonano</value>
+        <value>Ukończono</value>
     </data>
     <data name="TodoAdded" xml:space="preserve">
         <value>Zadanie zostało dodane</value>

@@ -23,24 +23,29 @@
             BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext}"/>
     </pages:BaseContentPage.Behaviors>
     <Grid
-        RowDefinitions="Auto, *, Auto">
+        RowDefinitions="Auto, Auto, *, Auto" Padding="12, 12" RowSpacing="8">
         <Label
             Text="Todo App"
             FontSize="36"
-            Margin="0, 12"
             FontAttributes="Bold"
             VerticalTextAlignment="Center"
             HorizontalTextAlignment="Center"
             TextColor="{StaticResource FontColor}"/>
+        <Label
+            Text="{Binding TodoListViewModel.CompletedSummary}"
+            FontSize="9"
+            Grid.Row="1"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="End"
+            TextColor="{StaticResource FontColor}"/>
         <ScrollView Padding="16,0"
-            Grid.Row="1">
+            Grid.Row="2">
             <views:TodoListView
                 BindingContext="{Binding TodoListViewModel}"/>
         </ScrollView>
         <Grid
-            Grid.Row="2"
-            ColumnDefinitions="*, Auto, *"
-            Padding="0, 15">
+            Grid.Row="3"
+            ColumnDefinitions="*, Auto, *">
             <Button
                 Grid.Column="1"
                 Command="{Binding CreateNewItemCommand}"

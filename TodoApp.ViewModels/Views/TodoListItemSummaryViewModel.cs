@@ -62,7 +62,7 @@ public sealed partial class TodoListItemSummaryViewModel : BaseViewModel
 
             await _todoItemsService.UpdateAsync(TodoItem).ConfigureAwait(false);
 
-            var message = new TodoItemUpdatedMessage(TodoItem);
+            var message = new TodoItemUpdatedMessage(TodoItem, true);
             _messenger.Send(message);
         }
         catch (Exception)

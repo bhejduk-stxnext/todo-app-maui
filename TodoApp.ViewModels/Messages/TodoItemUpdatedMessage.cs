@@ -5,6 +5,11 @@ namespace TodoApp.ViewModels.Messages;
 
 public sealed class TodoItemUpdatedMessage : ValueChangedMessage<TodoItem>
 {
-    public TodoItemUpdatedMessage(TodoItem value)
-        : base(value) { }
+    public bool OnlyCompleted { get; set; }
+    
+    public TodoItemUpdatedMessage(TodoItem value, bool onlyCompleted = false)
+        : base(value)
+    {
+        OnlyCompleted = onlyCompleted;
+    }
 }
