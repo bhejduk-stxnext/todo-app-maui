@@ -44,8 +44,8 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' And '$(_TargetPlatform)' == 'android'">
         <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
         <AndroidEnableFastDeployment>false</AndroidEnableFastDeployment>
-        <!--        <RunAOTCompilation>true</RunAOTCompilation>-->
-        <!--        <AndroidLinkMode>Full</AndroidLinkMode>-->
+        <RunAOTCompilation>true</RunAOTCompilation>
+        <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     </PropertyGroup>
 
     <ItemGroup>
