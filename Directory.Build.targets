@@ -18,8 +18,27 @@
         <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.ViewModels\TodoApp.ViewModels.csproj"/>
 
         <PackageReference Include="CommunityToolkit.Maui"/>
-        <PackageReference Include="CommunityToolkit.Maui.Markup"/>
         <PackageReference Include="Microsoft.Maui.Controls"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug"/>
+    </ItemGroup>
+
+    <!-- Tests -->
+    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Tests'))">
+        <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.ViewModels\TodoApp.ViewModels.csproj"/>
+
+        <PackageReference Include="NSubstitute"/>
+        <PackageReference Include="TUnit"/>
+    </ItemGroup>
+
+    <!-- UI Tests -->
+    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('UITests'))">
+        <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.ViewModels\TodoApp.ViewModels.csproj"/>
+
+        <PackageReference Include="Appium.WebDriver"/>
+    </ItemGroup>
+
+    <!-- UI platform Tests -->
+    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('UITests')) and !$(MSBuildProjectFullPath.Contains('UITests.Shared'))">
+        <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.UITests.Shared\TodoApp.UITests.Shared.csproj"/>
     </ItemGroup>
 </Project>

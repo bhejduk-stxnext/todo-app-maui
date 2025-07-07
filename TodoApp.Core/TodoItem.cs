@@ -12,7 +12,7 @@ public class TodoItem
 
     public DateTimeOffset CreatedDate { get; set; }
 
-    public DateTimeOffset? DueDate { get; set; }
+    public DateTimeOffset? Deadline { get; set; }
 
     public bool Important { get; set; }
 

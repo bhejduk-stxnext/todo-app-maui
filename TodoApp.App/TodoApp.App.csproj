@@ -4,6 +4,8 @@
         <TargetFrameworks>net9.0-android</TargetFrameworks>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 
+        <_TargetPlatform>$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)'))</_TargetPlatform>
+
         <OutputType>Exe</OutputType>
         <RootNamespace>TodoApp.App</RootNamespace>
         <UseMaui>true</UseMaui>
@@ -27,11 +29,23 @@
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
         <WindowsPackageType>None</WindowsPackageType>
 
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-        <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+        <SupportedOSPlatformVersion Condition="'$(_TargetPlatform)'== 'android'">21.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="'$(_TargetPlatform)'== 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="'$(_TargetPlatform)'== 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' And '$(_TargetPlatform)' == 'android'">
+        <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+        <AndroidEnableFastDeployment>true</AndroidEnableFastDeployment>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' And '$(_TargetPlatform)' == 'android'">
+        <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+        <AndroidEnableFastDeployment>false</AndroidEnableFastDeployment>
+        <!--        <RunAOTCompilation>true</RunAOTCompilation>-->
+        <!--        <AndroidLinkMode>Full</AndroidLinkMode>-->
     </PropertyGroup>
 
     <ItemGroup>
@@ -53,45 +67,45 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\Strings\Strings.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Strings\Strings.pl.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Strings.pl.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Strings\Strings.en.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Strings.en.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Strings\Strings.pl-PL.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Strings.pl-PL.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Strings\Strings.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Strings\Strings.pl.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.pl.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Strings\Strings.en.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.en.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Strings\Strings.pl-PL.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.pl-PL.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\Strings\Strings.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Strings.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Strings\Strings.pl.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Strings.pl.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Strings\Strings.en.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Strings.en.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Strings\Strings.pl-PL.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Strings.pl-PL.resx</DependentUpon>
-      </Compile>
+        <Compile Update="Resources\Strings\Strings.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Strings\Strings.pl.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.pl.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Strings\Strings.en.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.en.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Strings\Strings.pl-PL.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.pl-PL.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
 </Project>

@@ -15,12 +15,13 @@
     x:Class="TodoApp.App.Pages.EditTodoItemPage"
     x:DataType="pageViewModels:EditTodoItemViewModel"
     x:Name="Page"
-    BackgroundColor="{StaticResource MainBackgroundColor}">
+    BackgroundColor="{StaticResource MainBackgroundColor}"
+    AutomationId="EditTodoItemPage">
     <pages:BaseContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
-            Command="{Binding Path=FormViewModel.InitializeCommand}"
-            BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext}"/>
+            BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext, x:DataType={x:Type pages:EditTodoItemPage}}"
+            Command="{Binding Path=FormViewModel.InitializeCommand}"/>
     </pages:BaseContentPage.Behaviors>
     <pages:BaseContentPage.Content>
         <Grid
@@ -57,6 +58,7 @@
                     ColumnDefinitions="*, 2*, *"
                     Padding="0, 15">
                     <Button
+                        AutomationId="SaveButton"
                         Grid.Column="1"
                         Command="{Binding SaveItemCommand}"
                         Text="{x:Static strings:Strings.Save}"

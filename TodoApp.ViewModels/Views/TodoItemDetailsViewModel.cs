@@ -11,9 +11,7 @@ namespace TodoApp.ViewModels.Views;
 public sealed partial class TodoItemDetailsViewModel : BaseViewModel
 {
     private readonly TodoItemFormViewModel _formViewModel;
-    private readonly IMessenger _messenger;
-    private readonly INavigation _navigation;
-
+    private readonly ViewModelContext _context;
     private readonly ITodoItemsService _todoItemsService;
 
     /// <summary>
@@ -24,13 +22,11 @@ public sealed partial class TodoItemDetailsViewModel : BaseViewModel
 
     public TodoItemDetailsViewModel(
         ITodoItemsService todoItemsService,
-        INavigation navigation,
-        IMessenger messenger,
+        ViewModelContext context,
         TodoItemFormViewModel formViewModel)
     {
         _todoItemsService = todoItemsService;
-        _navigation = navigation;
-        _messenger = messenger;
+        _context = context;
         _formViewModel = formViewModel;
     }
 
@@ -42,8 +38,8 @@ public sealed partial class TodoItemDetailsViewModel : BaseViewModel
         _formViewModel.Title = value.Title;
         _formViewModel.Details = value.Details;
         _formViewModel.SelectedCategory = value.Category ?? NoneCategory.Instance;
-        _formViewModel.CreatedDate = value.CreatedDate;
-        _formViewModel.DueDate = value.DueDate;
+        _formViewModel.CreatedDate = value.CreatedDate.LocalDateTime;
+        _formViewModel.Deadline = value.Deadline?.LocalDateTime;
         _formViewModel.Important = value.Important;
         _formViewModel.Completed = value.Completed;
     }
@@ -53,8 +49,12 @@ public sealed partial class TodoItemDetailsViewModel : BaseViewModel
     {
         TodoItem.Title = _formViewModel.Title;
         TodoItem.Details = _formViewModel.Details;
-        TodoItem.Category = _formViewModel.SelectedCategory == NoneCategory.Instance ? null : _formViewModel.SelectedCategory;
-        TodoItem.DueDate = _formViewModel.DueDate;
+
+        TodoItem.Category = _formViewModel.SelectedCategory == NoneCategory.Instance
+            ? null
+            : _formViewModel.SelectedCategory;
+
+        TodoItem.Deadline = _formViewModel.Deadline;
         TodoItem.Important = _formViewModel.Important;
         TodoItem.Completed = _formViewModel.Completed;
 
@@ -66,9 +66,9 @@ public sealed partial class TodoItemDetailsViewModel : BaseViewModel
 
             var message = new TodoItemUpdatedMessage(TodoItem);
 
-            _messenger.Send(message);
+            _context.Messenger.Send(message);
 
-            await _navigation
+            await _context.Navigation
                 .GoBackAsync(cancellationToken)
                 .ConfigureAwait(false);
         }

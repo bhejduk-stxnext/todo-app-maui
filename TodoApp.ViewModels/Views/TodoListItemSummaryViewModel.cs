@@ -7,11 +7,11 @@ namespace TodoApp.ViewModels.Views;
 
 public sealed partial class TodoListItemSummaryViewModel : BaseViewModel
 {
-    private readonly IMessenger _messenger;
+    private readonly ViewModelContext _context;
     private readonly ITodoItemsService _todoItemsService;
 
     [ObservableProperty]
-    private DateTimeOffset? _dueDate;
+    private DateTimeOffset? _deadline;
 
     [ObservableProperty]
     private bool _important;
@@ -27,18 +27,17 @@ public sealed partial class TodoListItemSummaryViewModel : BaseViewModel
 
     public TodoListItemSummaryViewModel(
         TodoItem todoItem,
-        ITodoItemsService todoItemsService,
-        TimeProvider timeProvider,
-        IMessenger messenger)
+        ViewModelContext context,
+        ITodoItemsService todoItemsService)
     {
         TodoItem = todoItem;
         _todoItemsService = todoItemsService;
-        _messenger = messenger;
+        _context = context;
         Title = todoItem.Title;
-        DueDate = todoItem.DueDate;
+        Deadline = todoItem.Deadline;
         Important = todoItem.Important;
         IsCompleted = todoItem.Completed;
-        DeadlineExceeded = todoItem.DueDate > timeProvider.GetUtcNow();
+        DeadlineExceeded = todoItem.Deadline > _context.TimeProvider.GetUtcNow();
     }
 
     public bool DeadlineExceeded { get; }
@@ -60,10 +59,12 @@ public sealed partial class TodoListItemSummaryViewModel : BaseViewModel
         {
             TodoItem.Completed = value;
 
-            await _todoItemsService.UpdateAsync(TodoItem).ConfigureAwait(false);
+            await _todoItemsService
+                .UpdateAsync(TodoItem)
+                .ConfigureAwait(false);
 
             var message = new TodoItemUpdatedMessage(TodoItem, true);
-            _messenger.Send(message);
+            _context.Messenger.Send(message);
         }
         catch (Exception)
         {

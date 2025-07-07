@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -13,53 +14,42 @@ namespace TodoApp.ViewModels.Views;
 
 public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoItemCreatedMessage>, IRecipient<TodoItemUpdatedMessage>, IDisposable
 {
-    private readonly IDispatcher _dispatcher;
-    private readonly IMessenger _messenger;
-    private readonly INavigation _navigation;
-    private readonly ILocalization _localization;
     private readonly ITodoItemsService _todoItemsService;
     private readonly ITodoListItemSummaryViewModelFactory _todoItemSummaryFactory;
-    private readonly ISnackbar _snackbar;
+    private readonly ViewModelContext _context;
 
     [ObservableProperty]
     private ObservableCollection<TodoListItemSummaryViewModel> _todoItems;
-    
+
     public int CompletedCount => TodoItems.Count(x => x.IsCompleted);
+
     public int TotalCount => TodoItems.Count;
 
-    public string CompletedSummary => $"{_localization.GetString(Strings.Completed)}: {CompletedCount}/{TotalCount}";
-    
+    public string CompletedSummary => $"{_context.Localization.GetString(Strings.Completed)}: {CompletedCount}/{TotalCount}";
+
     public TodoListViewModel(
+        ViewModelContext context,
         ITodoItemsService todoItemsService,
-        IDispatcher dispatcher,
-        IMessenger messenger,
-        ITodoListItemSummaryViewModelFactory todoItemSummaryFactory,
-        INavigation navigation,
-        ISnackbar snackbar,
-        ILocalization localization)
+        ITodoListItemSummaryViewModelFactory todoItemSummaryFactory)
     {
+        _context = context;
         _todoItemsService = todoItemsService;
-        _dispatcher = dispatcher;
-        _messenger = messenger;
         _todoItemSummaryFactory = todoItemSummaryFactory;
-        _navigation = navigation;
-        _snackbar = snackbar;
-        _localization = localization;
         _todoItems = [];
 
-        _messenger.Register<TodoItemCreatedMessage>(this);
-        _messenger.Register<TodoItemUpdatedMessage>(this);
-        
+        context.Messenger.Register<TodoItemCreatedMessage>(this);
+        context.Messenger.Register<TodoItemUpdatedMessage>(this);
+
         TodoItems.CollectionChanged += TodoItems_CollectionChanged;
     }
 
-    private void TodoItems_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void TodoItems_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         OnPropertyChanged(nameof(CompletedCount));
         OnPropertyChanged(nameof(TotalCount));
         OnPropertyChanged(nameof(CompletedSummary));
     }
-    
+
     async void IRecipient<TodoItemCreatedMessage>.Receive(TodoItemCreatedMessage message)
     {
         var newList = TodoItems.ToList();
@@ -73,8 +63,11 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
 
         TodoItems.Insert(index, todoItemViewModel);
 
-        var localizedString = _localization.GetString(Strings.TodoAdded);
-        await _snackbar.ShowAsync(localizedString).ConfigureAwait(false);
+        var localizedString = _context.Localization.GetString(Strings.TodoAdded);
+
+        await _context.Snackbar
+            .ShowAsync(localizedString)
+            .ConfigureAwait(false);
     }
 
     async void IRecipient<TodoItemUpdatedMessage>.Receive(TodoItemUpdatedMessage message)
@@ -82,7 +75,7 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         var todoItemVm = TodoItems.First(x => x.TodoItem.Id == message.Value.Id);
 
         todoItemVm.Title = message.Value.Title;
-        todoItemVm.DueDate = message.Value.DueDate;
+        todoItemVm.Deadline = message.Value.Deadline;
         todoItemVm.Important = message.Value.Important;
         todoItemVm.IsCompleted = message.Value.Completed;
 
@@ -101,8 +94,11 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
 
         if (!message.OnlyCompleted)
         {
-            var localizedString = _localization.GetString(Strings.TodoUpdated);
-            await _snackbar.ShowAsync(localizedString).ConfigureAwait(false);   
+            var localizedString = _context.Localization.GetString(Strings.TodoUpdated);
+
+            await _context.Snackbar
+                .ShowAsync(localizedString)
+                .ConfigureAwait(false);
         }
     }
 
@@ -115,14 +111,16 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         var orderedItems = items
             .OrderBy(x => x.Completed)
             .ThenBy(x => !x.Important)
-            .ThenBy(x => x.DueDate)
+            .ThenBy(x => x.Deadline)
             .ToList();
 
         foreach (var item in orderedItems)
         {
             var summaryViewModel = _todoItemSummaryFactory.Create(item);
 
-            await _dispatcher.DispatchAsync(() => TodoItems.Add(summaryViewModel)).ConfigureAwait(false);
+            await _context.Dispatcher
+                .DispatchAsync(() => TodoItems.Add(summaryViewModel))
+                .ConfigureAwait(false);
         }
     }
 
@@ -136,7 +134,7 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         return items
             .OrderBy(x => x.IsCompleted)
             .ThenBy(x => !x.Important)
-            .ThenBy(x => x.DueDate);
+            .ThenBy(x => x.Deadline);
     }
 
     [RelayCommand]
@@ -147,11 +145,11 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
             { "TodoItem", todoListItemSummaryViewModel.TodoItem }
         };
 
-        await _navigation
+        await _context.Navigation
             .NavigateToAsync(Routes.EditTodoItem, parameters, cancellationToken)
             .ConfigureAwait(false);
     }
-    
+
     public void Dispose()
     {
         TodoItems.CollectionChanged -= TodoItems_CollectionChanged;

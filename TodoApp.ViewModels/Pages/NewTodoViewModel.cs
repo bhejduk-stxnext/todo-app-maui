@@ -15,9 +15,9 @@ public sealed partial class NewTodoViewModel : BaseViewModel
     private readonly IMessenger _messenger;
     private readonly INavigation _navigation;
     private readonly ITodoItemsService _todoItemsService;
-    
+
     public TodoItemFormViewModel FormViewModel { get; }
-    
+
     public NewTodoViewModel(
         ITodoItemsService todoItemsService,
         IMessenger messenger,
@@ -31,7 +31,7 @@ public sealed partial class NewTodoViewModel : BaseViewModel
         _navigation = navigation;
         FormViewModel = formViewModel;
     }
-    
+
     [RelayCommand]
     private async Task AddAsync(CancellationToken cancellationToken)
     {
@@ -39,20 +39,25 @@ public sealed partial class NewTodoViewModel : BaseViewModel
         {
             Title = FormViewModel.Title,
             Details = FormViewModel.Details,
-            Category = FormViewModel.SelectedCategory == NoneCategory.Instance ? null : FormViewModel.SelectedCategory,
-            DueDate = FormViewModel.DueDate,
+            Category = FormViewModel.SelectedCategory == NoneCategory.Instance
+                ? null
+                : FormViewModel.SelectedCategory,
+            Deadline = FormViewModel.Deadline,
             CreatedDate = DateTimeOffset.Now,
             Important = FormViewModel.Important,
-            Completed = FormViewModel.Completed,
+            Completed = FormViewModel.Completed
         };
-    
+
         var id = await _todoItemsService
             .AddAsync(todoItem, cancellationToken)
             .ConfigureAwait(false);
-    
+
         todoItem.Id = id;
-    
+
         _messenger.Send(new TodoItemCreatedMessage(todoItem));
-        await _navigation.GoBackAsync(cancellationToken).ConfigureAwait(false);
+
+        await _navigation
+            .GoBackAsync(cancellationToken)
+            .ConfigureAwait(false);
     }
 }

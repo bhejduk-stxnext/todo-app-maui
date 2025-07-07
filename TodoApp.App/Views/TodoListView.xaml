@@ -19,10 +19,11 @@
         </ResourceDictionary>
     </views:BaseContentView.Resources>
     <CollectionView
+        AutomationId="TodoItems"
         ItemsSource="{Binding TodoItems}"
         SelectionMode="Single"
         SelectionChangedCommand="{Binding EditCommand}"
-        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"
+        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}, x:DataType={x:Type CollectionView}}"
         SelectionChanged="SelectableItemsView_OnSelectionChanged">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout
@@ -39,10 +40,12 @@
                     BackgroundColor="{StaticResource TodoItemColor}"
                     Padding="12, 16">
                     <Grid
+                        AutomationId="TodoItem"
                         ColumnDefinitions="*, 36"
                         RowDefinitions="*,*,*"
                         BackgroundColor="{StaticResource TodoItemColor}">
                         <Label
+                            AutomationId="TodoItemTitle"
                             Grid.Column="0"
                             Grid.Row="0"
                             Text="{Binding Title}"
@@ -69,7 +72,7 @@
                         <Label
                             Grid.Column="0"
                             Grid.Row="1"
-                            Text="{Binding DueDate, StringFormat='{0:g}'}"
+                            Text="{Binding Deadline, StringFormat='{0:g}'}"
                             FontSize="11"
                             VerticalTextAlignment="Center"
                             TextColor="{StaticResource FontColor}">
@@ -92,6 +95,7 @@
                             </Label.Triggers>
                         </Label>
                         <Label
+                            AutomationId="TodoItemImportant"
                             Grid.Column="0"
                             Grid.Row="2"
                             Text="{x:Static strings:Strings.Important}"
@@ -119,6 +123,7 @@
                             </Label.Triggers>
                         </Label>
                         <CheckBox
+                            AutomationId="TodoItemImportantCompleted"
                             x:Name="IsCompletedCheckBox"
                             Grid.Column="1"
                             Grid.RowSpan="3"

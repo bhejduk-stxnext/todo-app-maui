@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.OS;
+using Android.Runtime;
 
 namespace TodoApp.App;
 
@@ -14,4 +14,5 @@ namespace TodoApp.App;
         | ConfigChanges.ScreenLayout
         | ConfigChanges.SmallestScreenSize
         | ConfigChanges.Density)]
+[Register("com.companyname.todoapp.app.MainActivity")]
 public class MainActivity : MauiAppCompatActivity { }

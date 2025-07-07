@@ -20,11 +20,14 @@
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
             Command="{Binding Path=InitializeCommand}"
-            BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext}"/>
+            BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext, x:DataType={x:Type pages:MainPage}}"/>
     </pages:BaseContentPage.Behaviors>
     <Grid
-        RowDefinitions="Auto, Auto, *, Auto" Padding="12, 12" RowSpacing="8">
+        RowDefinitions="Auto, Auto, *, Auto"
+        Padding="12, 12"
+        RowSpacing="8">
         <Label
+            AutomationId="AppTitle"
             Text="Todo App"
             FontSize="36"
             FontAttributes="Bold"
@@ -38,7 +41,9 @@
             VerticalTextAlignment="Center"
             HorizontalTextAlignment="End"
             TextColor="{StaticResource FontColor}"/>
-        <ScrollView Padding="16,0"
+        <ScrollView
+            AutomationId="TodoItemsScroll"
+            Padding="16,0"
             Grid.Row="2">
             <views:TodoListView
                 BindingContext="{Binding TodoListViewModel}"/>

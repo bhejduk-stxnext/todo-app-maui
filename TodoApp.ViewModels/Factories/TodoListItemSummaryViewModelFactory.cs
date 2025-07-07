@@ -6,23 +6,20 @@ namespace TodoApp.ViewModels.Factories;
 
 public class TodoListItemSummaryViewModelFactory : ITodoListItemSummaryViewModelFactory
 {
-    private readonly IMessenger _messenger;
-    private readonly TimeProvider _timeProvider;
+    private readonly ViewModelContext _context;
     private readonly ITodoItemsService _todoItemsService;
 
-    public TodoListItemSummaryViewModelFactory(ITodoItemsService todoItemsService, TimeProvider timeProvider, IMessenger messenger)
+    public TodoListItemSummaryViewModelFactory(ITodoItemsService todoItemsService, ViewModelContext context)
     {
         _todoItemsService = todoItemsService;
-        _timeProvider = timeProvider;
-        _messenger = messenger;
+        _context = context;
     }
 
     public TodoListItemSummaryViewModel Create(TodoItem todoItem)
     {
         return new TodoListItemSummaryViewModel(
             todoItem,
-            _todoItemsService,
-            _timeProvider,
-            _messenger);
+            _context,
+            _todoItemsService);
     }
 }

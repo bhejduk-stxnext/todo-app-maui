@@ -44,8 +44,8 @@ public sealed partial class EditTodoItemViewModel : BaseViewModel
         FormViewModel.Title = value.Title;
         FormViewModel.Details = value.Details;
         FormViewModel.SelectedCategory = value.Category ?? NoneCategory.Instance;
-        FormViewModel.CreatedDate = value.CreatedDate;
-        FormViewModel.DueDate = value.DueDate;
+        FormViewModel.CreatedDate = value.CreatedDate.LocalDateTime;
+        FormViewModel.Deadline = value.Deadline?.LocalDateTime;
         FormViewModel.Important = value.Important;
         FormViewModel.Completed = value.Completed;
     }
@@ -60,8 +60,12 @@ public sealed partial class EditTodoItemViewModel : BaseViewModel
     {
         TodoItem.Title = FormViewModel.Title;
         TodoItem.Details = FormViewModel.Details;
-        TodoItem.Category = FormViewModel.SelectedCategory == NoneCategory.Instance ? null : FormViewModel.SelectedCategory;
-        TodoItem.DueDate = FormViewModel.DueDate;
+
+        TodoItem.Category = FormViewModel.SelectedCategory == NoneCategory.Instance
+            ? null
+            : FormViewModel.SelectedCategory;
+
+        TodoItem.Deadline = FormViewModel.Deadline;
         TodoItem.Important = FormViewModel.Important;
         TodoItem.Completed = FormViewModel.Completed;
 

@@ -19,7 +19,7 @@
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
             Command="{Binding Path=FormViewModel.InitializeCommand}"
-            BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext}"/>
+            BindingContext="{Binding Source={x:Reference Page}, Path=BindingContext, x:DataType={x:Type pages:NewTodoItemPage}}"/>
     </pages:BaseContentPage.Behaviors>
     <pages:BaseContentPage.Content>
         <Grid

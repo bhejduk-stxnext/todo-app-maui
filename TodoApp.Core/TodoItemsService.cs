@@ -23,7 +23,7 @@ public sealed class TodoItemsService : ITodoItemsService
             {
                 Id = id.ToString(),
                 Title = new Commerce().ProductName() + " " + id,
-                DueDate = new Date().SoonOffset(),
+                Deadline = new Date().SoonOffset(),
                 CreatedDate = new Date().RecentOffset(),
                 Completed = id % 3 == 0,
                 Important = id % 2 == 0
@@ -59,7 +59,7 @@ public sealed class TodoItemsService : ITodoItemsService
         var all = Categories
             .GetAll()
             .ToList();
-        
+
         return Task.FromResult<IReadOnlyList<Category>>(all);
     }
 }

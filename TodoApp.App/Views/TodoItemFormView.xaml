@@ -7,53 +7,60 @@
     xmlns:views="clr-namespace:TodoApp.App.Views;assembly=TodoApp.App"
     xmlns:viewModels="clr-namespace:TodoApp.ViewModels.Views;assembly=TodoApp.ViewModels"
     xmlns:strings="clr-namespace:TodoApp.App.Resources.Strings"
+    xmlns:core="clr-namespace:TodoApp.Core;assembly=TodoApp.Core"
     x:TypeArguments="viewModels:TodoItemFormViewModel"
     x:Class="TodoApp.App.Views.TodoItemFormView"
     x:DataType="viewModels:TodoItemFormViewModel">
     <views:BaseContentView.Resources>
-            <Style
-                TargetType="Border">
-                <Setter
-                    Property="Stroke"
-                    Value="{StaticResource TodoItemColor}"/>
-                <Setter
-                    Property="StrokeThickness"
-                    Value="1"/>
-                <Setter
-                    Property="StrokeShape"
-                    Value="RoundRectangle 10,10,10,10"/>
-                <Setter
-                    Property="BackgroundColor"
-                    Value="{StaticResource TodoItemColor}"/>
-                <Setter
-                    Property="Padding"
-                    Value="12, 16"/>
-            </Style>
-            <Style
-                TargetType="Label">
-                <Setter
-                    Property="TextColor"
-                    Value="{StaticResource FontColor}"/>
-            </Style>
-            <Style
-                TargetType="Entry">
-                <Setter
-                    Property="BackgroundColor"
-                    Value="{StaticResource TodoItemColor}"/>
-                <Setter
-                    Property="TextColor"
-                    Value="{StaticResource FontColor}"/>
-                <Setter
-                    Property="PlaceholderColor"
-                    Value="{StaticResource FontColor}"/>
-            </Style>
-            <Style
-                TargetType="DatePicker">
-                <Setter
-                    Property="TextColor"
-                    Value="{StaticResource FontColor}"/>
-            </Style>
-            <ResourceDictionary/>
+        <Style
+            TargetType="Border">
+            <Setter
+                Property="Stroke"
+                Value="{StaticResource TodoItemColor}"/>
+            <Setter
+                Property="StrokeThickness"
+                Value="1"/>
+            <Setter
+                Property="StrokeShape"
+                Value="RoundRectangle 10,10,10,10"/>
+            <Setter
+                Property="BackgroundColor"
+                Value="{StaticResource TodoItemColor}"/>
+            <Setter
+                Property="Padding"
+                Value="12, 16"/>
+        </Style>
+        <Style
+            TargetType="Label">
+            <Setter
+                Property="TextColor"
+                Value="{StaticResource FontColor}"/>
+        </Style>
+        <Style
+            TargetType="Entry">
+            <Setter
+                Property="BackgroundColor"
+                Value="{StaticResource TodoItemColor}"/>
+            <Setter
+                Property="TextColor"
+                Value="{StaticResource FontColor}"/>
+            <Setter
+                Property="PlaceholderColor"
+                Value="{StaticResource FontColor}"/>
+        </Style>
+        <Style
+            TargetType="DatePicker">
+            <Setter
+                Property="TextColor"
+                Value="{StaticResource FontColor}"/>
+        </Style>
+        <Style
+            TargetType="TimePicker">
+            <Setter
+                Property="TextColor"
+                Value="{StaticResource FontColor}"/>
+        </Style>
+        <ResourceDictionary/>
     </views:BaseContentView.Resources>
     <Grid
         RowDefinitions="*,1.3*,1.2*,*,*,*"
@@ -62,14 +69,18 @@
         <Border
             Grid.Row="0">
             <Entry
+                AutomationId="TitleEntry"
                 Placeholder="{x:Static strings:Strings.AddTitle}"
-                Text="{Binding Title}"/>
+                Text="{Binding Title}"
+                VerticalTextAlignment="Center"/>
         </Border>
         <Border
             Grid.Row="1">
             <Entry
+                AutomationId="DetailsEntry"
                 Placeholder="{x:Static strings:Strings.AddDetails}"
-                Text="{Binding Details}"/>
+                Text="{Binding Details}"
+                VerticalTextAlignment="Center"/>
         </Border>
         <Border
             Grid.Row="2">
@@ -83,13 +94,46 @@
                     WidthRequest="200"
                     HorizontalOptions="End"
                     ItemsSource="{Binding Categories}"
-                    ItemDisplayBinding="{Binding Name}"
+                    ItemDisplayBinding="{Binding Name, x:DataType={x:Type core:Category}}"
                     SelectedItem="{Binding SelectedCategory}"/>
             </Grid>
         </Border>
         <Border
             Grid.Row="3">
-            <DatePicker/>
+            <Grid
+                ColumnDefinitions="Auto, 50, 100, 150, 30">
+                <Label
+                    Text="Deadline"
+                    VerticalTextAlignment="Center"/>
+                <Switch
+                    Grid.Column="1"
+                    IsToggled="{Binding HasDeadline}"
+                    HorizontalOptions="Center"
+                    Width="50"
+                    WidthRequest="50"/>
+                <DatePicker
+                    Grid.Column="2"
+                    Width="60"
+                    WidthRequest="60"
+                    Date="{Binding SelectedDate}"
+                    IsEnabled="{Binding HasDeadline}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"/>
+                <TimePicker
+                    Grid.Column="3"
+                    Time="{Binding SelectedTime}"
+                    IsEnabled="{Binding HasDeadline}"
+                    Width="100"
+                    WidthRequest="100"
+                    HorizontalOptions="Center"/>
+                <Button
+                    Width="30"
+                    Text="C"
+                    Grid.Column="4"
+                    Command="{Binding ClearDeadlineCommand}"
+                    IsEnabled="{Binding HasDeadline}"
+                    HorizontalOptions="Center"/>
+            </Grid>
         </Border>
         <Border
             Grid.Row="4">
