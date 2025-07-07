@@ -14,43 +14,43 @@ public sealed partial class TodoItemFormViewModel : BaseViewModel
     private bool _initialized;
 
     [ObservableProperty]
-    private IReadOnlyList<Category> _categories = [];
+    public partial IReadOnlyList<Category> Categories { get; set; } = [];
 
     [ObservableProperty]
     [NotifyDataErrorInfo]
     [Required(ErrorMessage = "Required", AllowEmptyStrings = false)]
     [MinLength(2)]
     [MaxLength(100)]
-    private string _title;
+    public partial string Title { get; set; }
 
     [ObservableProperty]
     [MaxLength(100)]
     [NotifyDataErrorInfo]
-    private string _details;
+    public partial string Details { get; set; }
 
     [ObservableProperty]
-    private Category _selectedCategory;
+    public partial Category SelectedCategory { get; set; }
 
     [ObservableProperty]
-    private DateTime _createdDate;
+    public partial DateTime CreatedDate { get; set; }
 
     [ObservableProperty]
-    private DateTime? _deadline;
+    public partial DateTime? Deadline { get; set; }
 
     [ObservableProperty]
-    private DateTime _selectedDate;
+    public partial DateTime SelectedDate { get; set; }
 
     [ObservableProperty]
-    private TimeSpan _selectedTime;
+    public partial TimeSpan SelectedTime { get; set; }
 
     [ObservableProperty]
-    private bool _hasDeadline;
+    public partial bool HasDeadline { get; set; }
 
     [ObservableProperty]
-    private bool _important;
+    public partial bool Important { get; set; }
 
     [ObservableProperty]
-    private bool _completed;
+    public partial bool Completed { get; set; }
 
     public TodoItemFormViewModel(ITodoItemsService todoItemsService, ILocalization localization)
     {
@@ -70,8 +70,10 @@ public sealed partial class TodoItemFormViewModel : BaseViewModel
     private async Task InitializeAsync(CancellationToken cancellation)
     {
         if (!_initialized)
+        {
             await LoadItemsAsync(cancellation)
                 .ConfigureAwait(false);
+        }
 
         _initialized = true;
     }

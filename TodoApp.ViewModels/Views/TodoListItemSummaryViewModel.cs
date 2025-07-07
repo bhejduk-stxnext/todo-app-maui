@@ -11,19 +11,19 @@ public sealed partial class TodoListItemSummaryViewModel : BaseViewModel
     private readonly ITodoItemsService _todoItemsService;
 
     [ObservableProperty]
-    private DateTimeOffset? _deadline;
+    public partial DateTimeOffset? Deadline { get; set; }
 
     [ObservableProperty]
-    private bool _important;
+    public partial bool Important { get; set; }
 
     [ObservableProperty]
-    private bool _isBusy;
+    public partial bool IsBusy { get; set; }
 
     [ObservableProperty]
-    private bool _isCompleted;
+    public partial bool IsCompleted { get; set; }
 
     [ObservableProperty]
-    private string _title = string.Empty;
+    public partial string Title { get; set; } = string.Empty;
 
     public TodoListItemSummaryViewModel(
         TodoItem todoItem,

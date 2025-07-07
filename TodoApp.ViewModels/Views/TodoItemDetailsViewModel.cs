@@ -18,7 +18,7 @@ public sealed partial class TodoItemDetailsViewModel : BaseViewModel
     ///     Passed through IQueryAttributable
     /// </summary>
     [ObservableProperty]
-    private TodoItem _todoItem = null!;
+    public partial TodoItem TodoItem { get; set; } = null!;
 
     public TodoItemDetailsViewModel(
         ITodoItemsService todoItemsService,

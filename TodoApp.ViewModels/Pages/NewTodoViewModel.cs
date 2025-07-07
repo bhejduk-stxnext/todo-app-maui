@@ -11,25 +11,19 @@ namespace TodoApp.ViewModels.Pages;
 
 public sealed partial class NewTodoViewModel : BaseViewModel
 {
-    private readonly IConnectivity _connectivity;
-    private readonly IMessenger _messenger;
-    private readonly INavigation _navigation;
+    private readonly ViewModelContext _context;
     private readonly ITodoItemsService _todoItemsService;
 
     public TodoItemFormViewModel FormViewModel { get; }
 
     public NewTodoViewModel(
+        ViewModelContext context,
         ITodoItemsService todoItemsService,
-        IMessenger messenger,
-        IConnectivity connectivity,
-        INavigation navigation,
         TodoItemFormViewModel formViewModel)
     {
         _todoItemsService = todoItemsService;
-        _messenger = messenger;
-        _connectivity = connectivity;
-        _navigation = navigation;
         FormViewModel = formViewModel;
+        _context = context;
     }
 
     [RelayCommand]
@@ -54,9 +48,9 @@ public sealed partial class NewTodoViewModel : BaseViewModel
 
         todoItem.Id = id;
 
-        _messenger.Send(new TodoItemCreatedMessage(todoItem));
+        _context.Messenger.Send(new TodoItemCreatedMessage(todoItem));
 
-        await _navigation
+        await _context.Navigation
             .GoBackAsync(cancellationToken)
             .ConfigureAwait(false);
     }

@@ -19,7 +19,7 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
     private readonly ViewModelContext _context;
 
     [ObservableProperty]
-    private ObservableCollection<TodoListItemSummaryViewModel> _todoItems;
+    public partial ObservableCollection<TodoListItemSummaryViewModel> TodoItems { get; set; }
 
     public int CompletedCount => TodoItems.Count(x => x.IsCompleted);
 
@@ -35,7 +35,7 @@ public sealed partial class TodoListViewModel : BaseViewModel, IRecipient<TodoIt
         _context = context;
         _todoItemsService = todoItemsService;
         _todoItemSummaryFactory = todoItemSummaryFactory;
-        _todoItems = [];
+        TodoItems = [];
 
         context.Messenger.Register<TodoItemCreatedMessage>(this);
         context.Messenger.Register<TodoItemUpdatedMessage>(this);
