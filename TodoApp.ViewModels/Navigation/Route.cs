@@ -2,21 +2,21 @@
 
 public abstract record Route;
 
-public record MainPageRoute : Route
+public sealed record MainPageRoute : Route
 {
     private MainPageRoute() { }
 
     public static MainPageRoute Instance { get; } = new();
 }
 
-public record NewTodoItemRoute : Route
+public sealed record NewTodoItemRoute : Route
 {
     private NewTodoItemRoute() { }
 
     public static NewTodoItemRoute Instance { get; } = new();
 }
 
-public record EditTodoItemRoute : Route
+public sealed record EditTodoItemRoute : Route
 {
     private EditTodoItemRoute() { }
 

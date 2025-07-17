@@ -2,7 +2,7 @@
 
 namespace TodoApp.App;
 
-public class Snackbar : ISnackbar
+public sealed class Snackbar : ISnackbar
 {
     public Task ShowAsync(string message)
     {

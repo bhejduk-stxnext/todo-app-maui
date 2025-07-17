@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using TodoApp.Core;
+using TodoApp.Core.Services;
 using TodoApp.ViewModels.Messages;
 
 namespace TodoApp.ViewModels.Views;

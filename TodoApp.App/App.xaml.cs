@@ -1,6 +1,6 @@
 ﻿namespace TodoApp.App;
 
-public partial class App : Application
+public sealed partial class App : Application
 {
     private readonly AppShell _appShell;
 

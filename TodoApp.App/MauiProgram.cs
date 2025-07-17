@@ -6,6 +6,7 @@ using Microsoft.Maui.Handlers;
 using TodoApp.App.Pages;
 using TodoApp.App.Views;
 using TodoApp.Core;
+using TodoApp.Core.Services;
 using TodoApp.ViewModels;
 using TodoApp.ViewModels.Factories;
 using TodoApp.ViewModels.Localization;

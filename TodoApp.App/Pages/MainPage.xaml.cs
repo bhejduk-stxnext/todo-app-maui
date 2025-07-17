@@ -2,7 +2,7 @@
 
 namespace TodoApp.App.Pages;
 
-public partial class MainPage : BaseContentPage<MainPageViewModel>
+public sealed partial class MainPage : BaseContentPage<MainPageViewModel>
 {
     public MainPage(MainPageViewModel viewModel)
         : base(viewModel)

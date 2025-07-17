@@ -1,10 +1,11 @@
 using CommunityToolkit.Mvvm.Messaging;
 using TodoApp.Core;
+using TodoApp.Core.Services;
 using TodoApp.ViewModels.Views;
 
 namespace TodoApp.ViewModels.Factories;
 
-public class TodoListItemSummaryViewModelFactory : ITodoListItemSummaryViewModelFactory
+public sealed class TodoListItemSummaryViewModelFactory : ITodoListItemSummaryViewModelFactory
 {
     private readonly ViewModelContext _context;
     private readonly ITodoItemsService _todoItemsService;

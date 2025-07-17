@@ -1,6 +1,6 @@
 ﻿namespace TodoApp.Core;
 
-public class TodoItem
+public sealed class TodoItem
 {
     public string Id { get; set; } = string.Empty;
 

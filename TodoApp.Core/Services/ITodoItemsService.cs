@@ -1,4 +1,4 @@
-﻿namespace TodoApp.Core;
+﻿namespace TodoApp.Core.Services;
 
 public interface ITodoItemsService
 {

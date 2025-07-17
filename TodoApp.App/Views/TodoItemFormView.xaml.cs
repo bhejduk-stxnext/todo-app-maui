@@ -2,7 +2,7 @@
 
 namespace TodoApp.App.Views;
 
-public partial class TodoItemFormView : BaseContentView<TodoItemFormViewModel>
+public sealed partial class TodoItemFormView : BaseContentView<TodoItemFormViewModel>
 {
     public TodoItemFormView(TodoItemFormViewModel viewModel)
         : base(viewModel)

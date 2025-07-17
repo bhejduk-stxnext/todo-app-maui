@@ -1,6 +1,6 @@
 ﻿namespace TodoApp.App.Graphics;
 
-public class TopEllipse : IDrawable
+public sealed class TopEllipse : IDrawable
 {
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {

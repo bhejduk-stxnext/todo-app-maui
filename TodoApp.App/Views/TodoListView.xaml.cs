@@ -2,7 +2,7 @@
 
 namespace TodoApp.App.Views;
 
-public partial class TodoListView : BaseContentView<TodoListViewModel>
+public sealed partial class TodoListView : BaseContentView<TodoListViewModel>
 {
     public TodoListView(TodoListViewModel viewModel)
         : base(viewModel)

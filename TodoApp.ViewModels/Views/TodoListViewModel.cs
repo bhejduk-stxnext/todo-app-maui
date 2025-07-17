@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Maui.Dispatching;
 using TodoApp.Core;
+using TodoApp.Core.Services;
 using TodoApp.ViewModels.Factories;
 using TodoApp.ViewModels.Localization;
 using TodoApp.ViewModels.Messages;

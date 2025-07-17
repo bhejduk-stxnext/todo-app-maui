@@ -3,7 +3,7 @@ using TodoApp.ViewModels.Pages;
 
 namespace TodoApp.App.Pages;
 
-public partial class EditTodoItemPage : BaseContentPage<EditTodoItemViewModel>, IQueryAttributable
+public sealed partial class EditTodoItemPage : BaseContentPage<EditTodoItemViewModel>, IQueryAttributable
 {
     public EditTodoItemPage(EditTodoItemViewModel viewModel)
         : base(viewModel)

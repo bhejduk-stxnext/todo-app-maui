@@ -1,6 +1,6 @@
 ﻿using Bogus.DataSets;
 
-namespace TodoApp.Core;
+namespace TodoApp.Core.Services;
 
 public sealed class TodoItemsService : ITodoItemsService
 {
