@@ -25,12 +25,14 @@ public static class MauiProgram
 
         builder
             .UseMauiApp<App>()
+#if ANDROID || WINDOWS
             .UseMauiCommunityToolkit(opt =>
             {
 #if WINDOWS
                 opt.SetShouldEnableSnackbarOnWindows(true);
 #endif
             })
+#endif
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

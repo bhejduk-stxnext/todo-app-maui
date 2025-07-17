@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+        
     <PropertyGroup>
-        <TargetFrameworks>net9.0-android</TargetFrameworks>
+        <TargetFrameworks>net9.0;net9.0-android</TargetFrameworks>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 
         <_TargetPlatform>$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)'))</_TargetPlatform>
-
+        
         <OutputType>Exe</OutputType>
         <RootNamespace>TodoApp.App</RootNamespace>
         <UseMaui>true</UseMaui>
@@ -48,6 +48,12 @@
         <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
+        <OutputType>Library</OutputType>
+        <!-- Disable Community Toolkit error --> 
+        <NoWarn>MCT001</NoWarn>
+    </PropertyGroup>
+    
     <ItemGroup>
         <!-- App Icon -->
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4"/>
