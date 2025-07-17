@@ -5,7 +5,7 @@ using TodoApp.ViewModels.Localization;
 using TodoApp.ViewModels.Models;
 using TodoApp.ViewModels.Views;
 
-namespace TodoApp.Tests;
+namespace TodoApp.UnitTests;
 
 public class TodoItemFormViewModelTests
 {

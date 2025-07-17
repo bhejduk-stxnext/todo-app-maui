@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <!-- Unit Tests -->
-    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('.Tests'))">
+    <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('UnitTests'))">
         <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.ViewModels\TodoApp.ViewModels.csproj"/>
     </ItemGroup>
 
@@ -48,7 +48,7 @@
 
     <!-- UI platform Tests -->
     <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('UITests')) and !$(MSBuildProjectFullPath.Contains('UITests.Shared'))">
-        <ProjectReference Include="$(MSBuildThisFileDirectory)\TodoApp.UITests.Shared\TodoApp.UITests.Shared.csproj"/>
+        <ProjectReference Include="$(MSBuildThisFileDirectory)\Tests\UITests.Shared\TodoApp.UITests.Shared.csproj"/>
     </ItemGroup>
 
     <!-- Copied from https://github.com/TheCodeTraveler/HackerNews/blob/main/src/Directory.Build.targets -->

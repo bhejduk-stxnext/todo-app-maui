@@ -1,5 +1,6 @@
 <Project>
     <PropertyGroup>
+        <NetVersion>net9.0</NetVersion>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Nullable>enable</Nullable>
